@@ -1,0 +1,15 @@
+.game {
+  &__score {
+    font-size: 95px;
+    font-weight: bold;
+    margin-top: 10%;
+  }
+
+  &__input {
+    font-size: 45px;
+  }
+
+  &__math-ex {
+    font-size: 80px;
+  }
+}

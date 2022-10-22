@@ -8,6 +8,35 @@
     <title>Document</title>
 </head>
 <body>
-
+<div class="container">
+    <div class="game mt-5">
+        <div class="row justify-content-between mb-5">
+            <div class="col-5">
+                <h4 class="mb-2">Have fun, <span id="user-name"></span>!</h4>
+                <button class="btn btn-primary">Stop game</button>
+            </div>
+            <div class="col-5">
+                <div id="timer" class="text-end">
+                    <span>Time left:</span>
+                    <p>01:32</p>
+                </div>
+            </div>
+        </div>
+        <div id="math-example"
+             class="game__math-ex row d-flex col-12 text-center  justify-content-between align-items-stretch">
+            <div class="col-2 p-3 text-bg-primary" id="number-1"></div>
+            <div class="col-1 p-3 border" id="sign"></div>
+            <div class="col-2 p-3 text-bg-primary" id="number-2"></div>
+            <div class="col-1 p-3 border" id="equals">=</div>
+            <div class="col-4 p-3">
+                <input type="number" class="form-control h-100 game__input" id="user-result">
+            </div>
+        </div>
+        <div class="game__score text-center text-primary">
+            <h3>Your score:</h3>
+            <p class="game__score-number" id="user-score">26</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
