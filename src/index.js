@@ -23,9 +23,18 @@ const onFieldValidator = (eventName, field, btn) => {
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-
   localStorage.setItem('userName', JSON.stringify(userName.value));
-
+  localStorage.setItem('leaderBoardPractice', JSON.stringify(
+    [{userName: '', score: 0}]
+  ));
+  localStorage.setItem('leaderBoardTimeAttack', JSON.stringify(
+    [{userName: '', score: 0}]
+  ));
+  if(practiceMode.checked) {
+    localStorage.setItem('gameMode', JSON.stringify('practice'));
+  } else {
+    localStorage.setItem('gameMode', JSON.stringify('time-attack'));
+  }
   window.location.assign('http://localhost:3000/game.html');
 });
 

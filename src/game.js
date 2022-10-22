@@ -7,11 +7,12 @@ const number2 = document.getElementById('number-2');
 const sign = document.getElementById('sign');
 const userResult = document.getElementById('user-result');
 const userScore = document.getElementById('user-score');
+const gameMode = JSON.parse(localStorage.getItem('gameMode'));
+
 let userScoreCounter = 0;
 let correctResult = 0;
 
 const signsArray = ['+', '-', '/', '*'];
-// const signsArray = ['/'];
 const minNumber = 1;
 const maxNumber = 20;
 
@@ -40,10 +41,6 @@ const getMathExample = () => {
   number2.innerText = randomNumber2.toString();
   userScore.innerText = userScoreCounter.toString();
   sign.innerText = randomSign;
-
-  console.log(randomNumber1);
-  console.log(randomNumber2);
-  console.log(randomSign);
 
   if (randomSign === '+') {
     correctResult = randomNumber1 + randomNumber2;
@@ -85,16 +82,36 @@ window.addEventListener('DOMContentLoaded', () => {
         userScoreCounter++;
 
         userResult.value = '';
-        console.log('correct')
       } else {
         if (userScoreCounter !== 0) userScoreCounter--;
 
         userResult.value = '';
-        console.log('wrong')
       }
+
+      let lsLeaderBord = [];
+
+      if(gameMode === 'practice') {
+        if(JSON.parse(localStorage.getItem('leaderBoardPractice'))) {
+          lsLeaderBord = JSON.parse(localStorage.getItem('leaderBoardPractice'));
+        }
+
+        if(!(lsLeaderBord.find(user => user.userName === JSON.parse(localStorage.getItem('userName'))))) {
+          console.log('no user')
+          lsLeaderBord.push({userName: JSON.parse(localStorage.getItem('userName')), score: userScoreCounter});
+        } else {
+         lsLeaderBord = lsLeaderBord.map(user => {
+           if(user.userName === JSON.parse(localStorage.getItem('userName'))) {
+             user.score = userScoreCounter;
+           }
+           return user;
+         });
+        }
+
+        localStorage.setItem('leaderBoardPractice', JSON.stringify(lsLeaderBord));
+      }
+
       getMathExample();
     }
-
   });
 
 });
