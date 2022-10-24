@@ -9,6 +9,9 @@ const practiceModeBtn = document.getElementById('practice-mode-btn');
 const timeAttackModeBtn = document.getElementById('time-attack-mode-btn');
 const submitBtn = document.getElementById('user-form-submit');
 
+const userNameLocalStorage = JSON.parse(localStorage.getItem('currentUserName'));
+
+
 const onFieldValidator = (eventName, field, btn) => {
   field.addEventListener(eventName, (event) => {
     if (event.target.value === '') {
@@ -23,19 +26,21 @@ const onFieldValidator = (eventName, field, btn) => {
 
 form.addEventListener('submit', event => {
   event.preventDefault();
-  localStorage.setItem('userName', JSON.stringify(userName.value));
-  localStorage.setItem('leaderBoardPractice', JSON.stringify(
-    [{userName: '', score: 0}]
-  ));
-  localStorage.setItem('leaderBoardTimeAttack', JSON.stringify(
-    [{userName: '', score: 0}]
-  ));
+  localStorage.setItem('currentUserName', JSON.stringify(userName.value));
+
   if(practiceMode.checked) {
-    localStorage.setItem('gameMode', JSON.stringify('practice'));
+    localStorage.setItem('currentGameMode', JSON.stringify('practice'));
   } else {
-    localStorage.setItem('gameMode', JSON.stringify('time-attack'));
+    localStorage.setItem('currentGameMode', JSON.stringify('time-attack'));
   }
   window.location.assign('http://localhost:3000/game.html');
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  if(userNameLocalStorage) {
+    userName.value = userNameLocalStorage;
+    submitBtn.disabled = false;
+  }
 });
 
 

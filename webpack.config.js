@@ -94,6 +94,10 @@ module.exports = {
             presets: ["@babel/preset-env",]
           }
         }
+      },
+      {
+        test: /\.(woff|woff2)$/i,
+        type: "asset/inline",
       }
     ]
   }

@@ -1,5 +1,7 @@
 import './index.scss';
 import 'bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons.css';
+import {snackbar} from "./snackbar";
 
 const userName = document.getElementById('user-name');
 const number1 = document.getElementById('number-1');
@@ -7,7 +9,11 @@ const number2 = document.getElementById('number-2');
 const sign = document.getElementById('sign');
 const userResult = document.getElementById('user-result');
 const userScore = document.getElementById('user-score');
-const gameMode = JSON.parse(localStorage.getItem('gameMode'));
+const mathExampleDiv = document.getElementById('math-example');
+const stopGameBtn = document.getElementById('stop-game-btn');
+
+const userNameLocalStorage = JSON.parse(localStorage.getItem('currentUserName'));
+const gameModeLocalStorage = JSON.parse(localStorage.getItem('currentGameMode'));
 
 let userScoreCounter = 0;
 let correctResult = 0;
@@ -26,6 +32,16 @@ const getRandomNumberFromMinToMax = (max, min) => {
 
 const getRandomMathSign = () => {
   return signsArray[getRandomNumber(signsArray.length)];
+};
+
+const mathExampleAnimation = (element, direction) => {
+  const animationHandler = () => {
+    element.classList.remove(`${direction}-slide`);
+    element.removeEventListener('animationend', animationHandler);
+  };
+
+  element.classList.add(`${direction}-slide`);
+  element.addEventListener('animationend', animationHandler);
 };
 
 
@@ -70,50 +86,59 @@ const getMathExample = () => {
 };
 
 window.addEventListener('DOMContentLoaded', () => {
-  userName.innerText = JSON.parse(localStorage.getItem('userName'));
+  userName.innerText = userNameLocalStorage;
   userResult.focus();
+  mathExampleAnimation(mathExampleDiv, 'right');
   getMathExample();
 
   userResult.addEventListener('keydown', (e) => {
     if (e.keyCode === 13) {
-      console.log(correctResult)
-      console.log(parseInt(e.target.value))
       if (correctResult === parseInt(e.target.value)) {
         userScoreCounter++;
+        snackbar('blue', true);
 
         userResult.value = '';
       } else {
         if (userScoreCounter !== 0) userScoreCounter--;
+        snackbar('red', false);
 
         userResult.value = '';
       }
 
-      let lsLeaderBord = [];
-
-      if(gameMode === 'practice') {
-        if(JSON.parse(localStorage.getItem('leaderBoardPractice'))) {
-          lsLeaderBord = JSON.parse(localStorage.getItem('leaderBoardPractice'));
-        }
-
-        if(!(lsLeaderBord.find(user => user.userName === JSON.parse(localStorage.getItem('userName'))))) {
-          console.log('no user')
-          lsLeaderBord.push({userName: JSON.parse(localStorage.getItem('userName')), score: userScoreCounter});
-        } else {
-         lsLeaderBord = lsLeaderBord.map(user => {
-           if(user.userName === JSON.parse(localStorage.getItem('userName'))) {
-             user.score = userScoreCounter;
-           }
-           return user;
-         });
-        }
-
-        localStorage.setItem('leaderBoardPractice', JSON.stringify(lsLeaderBord));
-      }
-
+      mathExampleAnimation(mathExampleDiv, 'left');
       getMathExample();
     }
   });
 
 });
+
+stopGameBtn.addEventListener('click', () => {
+  let lsLeaderBord = [];
+
+  if(gameModeLocalStorage === 'practice') {
+    if (JSON.parse(localStorage.getItem('leaderBoardPractice'))) {
+      lsLeaderBord = JSON.parse(localStorage.getItem('leaderBoardPractice'));
+    }
+
+    if (!(lsLeaderBord.find(user => user.userName === userNameLocalStorage))) {
+      lsLeaderBord.push({userName: userNameLocalStorage, score: userScoreCounter});
+    } else {
+      lsLeaderBord = lsLeaderBord.map(user => {
+        if ((user.userName === userNameLocalStorage) && (user.score < userScoreCounter)) {
+          user.score = userScoreCounter;
+        }
+        return user;
+      });
+
+
+    }
+
+    localStorage.setItem('leaderBoardPractice', JSON.stringify(lsLeaderBord));
+  }
+
+  window.location.assign('http://localhost:3000/index.html');
+});
+
+
 
 
