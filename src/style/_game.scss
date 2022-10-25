@@ -6,10 +6,37 @@
   }
 
   &__input {
-    font-size: 45px;
+    font-size: 80px !important;
+    color: $darkGrey !important;
+
+    &:focus {
+      outline: none !important;
+      border-color: #ADD8E6 !important;
+      box-shadow: 0 0 10px #ADD8E6;
+    }
   }
 
   &__math-ex {
     font-size: 80px;
   }
+
+  &__timer {
+    font-size: 50px;
+    border-radius: 5px;
+    text-align: center;
+  }
+
+  &__score-shake {
+    animation: jump-shaking 0.83s 2;
+  }
+}
+
+@keyframes jump-shaking {
+  0% { transform: translateX(0) }
+  25% { transform: translateY(-9px) }
+  35% { transform: translateY(-9px) rotate(17deg) }
+  55% { transform: translateY(-9px) rotate(-17deg) }
+  65% { transform: translateY(-9px) rotate(17deg) }
+  75% { transform: translateY(-9px) rotate(-17deg) }
+  100% { transform: translateY(0) rotate(0) }
 }

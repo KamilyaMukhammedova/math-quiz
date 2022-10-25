@@ -12,6 +12,15 @@ body {
   font-size: 16px;
 }
 
+.light-blue-bg {
+  background-color: #ADD8E6 !important;
+  border-radius: 5px;
+}
+
+.light-blue-color {
+  color: #ADD8E6 !important;
+}
+
 .animation-container {
   width: 70%;
   margin:  0 auto;
@@ -48,6 +57,12 @@ body {
     transform: translateX(0);
   }
 }
+
+.results {
+  margin: 50px auto 0;
+}
+
+
 
 
 

@@ -27,6 +27,9 @@ const onFieldValidator = (eventName, field, btn) => {
 form.addEventListener('submit', event => {
   event.preventDefault();
   localStorage.setItem('currentUserName', JSON.stringify(userName.value));
+  localStorage.setItem('correctAnswers', JSON.stringify(0));
+  localStorage.setItem('incorrectAnswers', JSON.stringify(0));
+  localStorage.setItem('currentScore', JSON.stringify(0));
 
   if(practiceMode.checked) {
     localStorage.setItem('currentGameMode', JSON.stringify('practice'));
