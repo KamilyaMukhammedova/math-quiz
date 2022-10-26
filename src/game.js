@@ -24,9 +24,10 @@ let correctMathExampleResult = 0;
 let correctAnswers = 0;
 let incorrectAnswers = 0;
 
-const signsArray = ['+', '-', '/', '*'];
-const minNumber = 1;
-const maxNumber = 20;
+// const signsArray = ['+', '-', '/', '*'];
+const signsArray = ['*'];
+const minNumber = 2;
+const maxNumber = 100;
 
 const getRandomNumber = (max) => {
   return Math.floor(Math.random() * max);
@@ -57,14 +58,36 @@ const getShakeAnimation = (element) => {
   }, 500);
 };
 
+const getRandomNumberForDivision = () => {
+  let isMatchToDivision = true;
+  let number = 0;
+
+  while (isMatchToDivision) {
+    number = getRandomNumberFromMinToMax(100, 3);
+    const divisorsArray = [];
+
+    for (let i = 2; i < number; i++) {
+      if ((number % i) === 0 && (i !== number)) {
+        divisorsArray.push(i);
+      }
+    }
+
+    if(divisorsArray.length > 0) {
+      isMatchToDivision = false;
+       break;
+    }
+  }
+
+  return number;
+};
 
 const getMathExample = () => {
   const randomSign = getRandomMathSign();
   let randomNumber1 = 0;
   let randomNumber2 = 0;
 
-  randomNumber1 = getRandomNumberFromMinToMax(minNumber, maxNumber);
-  randomNumber2 = getRandomNumberFromMinToMax(minNumber, maxNumber);
+  randomNumber1 = getRandomNumberFromMinToMax(maxNumber, minNumber);
+  randomNumber2 = getRandomNumberFromMinToMax(maxNumber, minNumber);
 
   number1.innerText = randomNumber1.toString();
   number2.innerText = randomNumber2.toString();
@@ -74,6 +97,8 @@ const getMathExample = () => {
   if (randomSign === '+') {
     correctMathExampleResult = randomNumber1 + randomNumber2;
   } else if (randomSign === '*') {
+    randomNumber2 = getRandomNumberFromMinToMax(11, minNumber);
+    number2.innerText = randomNumber2.toString();
     correctMathExampleResult = randomNumber1 * randomNumber2;
   } else if (randomSign === '-') {
     if (randomNumber1 > randomNumber2) {
@@ -84,17 +109,20 @@ const getMathExample = () => {
       correctMathExampleResult = randomNumber2 - randomNumber1;
     }
   } else if (randomSign === '/') {
+    randomNumber1 = getRandomNumberForDivision();
+    randomNumber2 = 0;
     const divisorsArray = [];
 
-    for (let i = 1; i < randomNumber1 + 1; i++) {
-      if(randomNumber1 % i === 0) {
-        divisorsArray.push(i);
+      for (let i = 2; i < randomNumber1; i++) {
+        if ((randomNumber1 % i) === 0 && (i !== randomNumber1)) {
+          divisorsArray.push(i);
+        }
       }
-    }
 
-    randomNumber2 = divisorsArray[getRandomNumber(divisorsArray.length)];
-    number2.innerText = randomNumber2.toString();
-    correctMathExampleResult = randomNumber1 / randomNumber2;
+      randomNumber2 = divisorsArray[getRandomNumber(divisorsArray.length)];
+      number1.innerText = randomNumber1.toString();
+      number2.innerText = randomNumber2.toString();
+      correctMathExampleResult = randomNumber1 / randomNumber2;
   }
 };
 
@@ -130,7 +158,7 @@ window.addEventListener('DOMContentLoaded', () => {
 stopGameBtn.addEventListener('click', () => {
   let lsLeaderBord = [];
 
-  if(gameModeLocalStorage === 'practice') {
+  if (gameModeLocalStorage === 'practice') {
     if (JSON.parse(localStorage.getItem('leaderBoardPractice'))) {
       lsLeaderBord = JSON.parse(localStorage.getItem('leaderBoardPractice'));
     }
