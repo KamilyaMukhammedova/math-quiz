@@ -43,6 +43,9 @@ window.addEventListener('DOMContentLoaded', () => {
   if(userNameLocalStorage) {
     userName.value = userNameLocalStorage;
     submitBtn.disabled = false;
+  } else {
+    userName.value = '';
+    submitBtn.disabled = true;
   }
 });
 

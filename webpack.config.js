@@ -8,7 +8,7 @@ const devMode = mode === 'development';
 const target = devMode ? 'web' : 'browserslist';
 const devtool = devMode ? 'source-map' : undefined;
 
-const pages = ['index', 'game', 'results'];
+const pages = ['index', 'game', 'results', 'leaderboard'];
 
 module.exports = {
   mode,

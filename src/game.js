@@ -103,7 +103,9 @@ const getMathExample = () => {
   if (randomSign === '+') {
     correctMathExampleResult = randomNumber1 + randomNumber2;
   } else if (randomSign === '*') {
+    randomNumber1 = getRandomNumberFromMinToMax(21, minNumber);
     randomNumber2 = getRandomNumberFromMinToMax(11, minNumber);
+    number1.innerText = randomNumber1.toString();
     number2.innerText = randomNumber2.toString();
     correctMathExampleResult = randomNumber1 * randomNumber2;
   } else if (randomSign === '-') {
@@ -133,6 +135,10 @@ const getMathExample = () => {
 };
 
 window.addEventListener('DOMContentLoaded', () => {
+  localStorage.setItem('currentScore', JSON.stringify(0));
+  localStorage.setItem('correctAnswers', JSON.stringify(0));
+  localStorage.setItem('incorrectAnswers', JSON.stringify(0));
+
   if (gameModeLocalStorage === 'practice') {
     timerContainer.style.display = 'none';
   } else {
@@ -183,7 +189,6 @@ function analyseResults(leaderBoardName) {
 
   if (JSON.parse(localStorage.getItem(leaderBoardName))) {
     lsLeaderBord = JSON.parse(localStorage.getItem(leaderBoardName));
-
 
     if (!(lsLeaderBord.find(user => user.userName === userNameLocalStorage))) {
       lsLeaderBord.push({userName: userNameLocalStorage, score: userScoreCounter});
