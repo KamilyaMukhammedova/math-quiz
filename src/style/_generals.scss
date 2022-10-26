@@ -8,17 +8,17 @@ body {
   font-family: 'Montserrat', sans-serif;
   margin: 0;
   color: $darkGrey;
-  background-color: $lightGrey;
+  background-color: $light-purple;
   font-size: 16px;
 }
 
-.light-blue-bg {
-  background-color: #ADD8E6 !important;
+.light-purple-bg {
+  background-color: $purple !important;
   border-radius: 5px;
 }
 
-.light-blue-color {
-  color: #ADD8E6 !important;
+.light-purple-color {
+  color: $purple !important;
 }
 
 .animation-container {
@@ -27,7 +27,7 @@ body {
 }
 
 .right-slide {
-  animation: right-slide 0.5s;
+  animation: right-slide 0.5s ease-in-out;
 }
 
 @keyframes right-slide {
@@ -43,7 +43,7 @@ body {
 }
 
 .left-slide {
-  animation: left-slide 0.5s;
+  animation: left-slide 0.5s ease-in-out;
 }
 
 @keyframes left-slide {

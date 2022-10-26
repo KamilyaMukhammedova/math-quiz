@@ -16,27 +16,29 @@
                 <button class="btn btn-secondary" id="stop-game-btn">Stop game</button>
             </div>
             <div class="col-5">
-                <div class="text-end d-flex flex-column align-items-end">
-                    <span>Time left:</span>
-                    <p id="timer" class="game__timer text-bg-secondary col-4 p-2"></p>
+                <div id="timer-container">
+                    <div class="text-end d-flex flex-column align-items-end">
+                        <span>Time left:</span>
+                        <p id="timer" class="game__timer text-bg-secondary col-4 p-2"></p>
+                    </div>
                 </div>
             </div>
         </div>
         <div class="animation-container">
             <div id="math-example"
-                 class="game__math-ex row d-flex col-12 text-center  justify-content-between align-items-stretch">
-                <div class="col-2 p-3 light-blue-bg" id="number-1"></div>
-                <div class="col-2 p-3 border" id="sign"></div>
-                <div class="col-2 p-3 light-blue-bg" id="number-2"></div>
-                <div class="col-2 p-3 border" id="equals">=</div>
-                <div class="col-3 p-3">
+                 class="game__math-ex row d-flex col-12 text-center justify-content-between align-items-stretch">
+                <div class="col-2 p-3" id="number-1"></div>
+                <div class="col-2 p-3" id="sign"></div>
+                <div class="col-2 p-3" id="number-2"></div>
+                <div class="col-2 p-3" id="equals">=</div>
+                <div class="col-4 p-3">
                     <input type="number" class="form-control h-100 game__input" id="user-result">
                 </div>
             </div>
         </div>
-        <div class="game__score text-center light-blue-color" id="user-score-container">
+        <div class="game__score text-center" id="user-score-container">
             <h3>Your score:</h3>
-            <p class="game__score-number" id="user-score">26</p>
+            <p class="game__score-number p-2" id="user-score">26</p>
         </div>
     </div>
     <div class="snackbar" id="snackbar"></div>

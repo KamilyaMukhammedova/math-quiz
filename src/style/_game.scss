@@ -5,19 +5,33 @@
     margin-top: 10%;
   }
 
+  &__score-number {
+    background-color: $purple;
+    border-radius: 10px;
+    width: 170px;
+    margin: 0 auto;
+  }
+
   &__input {
-    font-size: 80px !important;
-    color: $darkGrey !important;
+    font-size: 100px !important;
+    color: $white !important;
+    background-color: $light-purple !important;
 
     &:focus {
       outline: none !important;
-      border-color: #ADD8E6 !important;
-      box-shadow: 0 0 10px #ADD8E6;
+      border-color: #F7EBEC !important;
+      box-shadow: 0 0 10px #F7EBEC;
+    }
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
     }
   }
 
   &__math-ex {
-    font-size: 80px;
+    font-size: 100px;
   }
 
   &__timer {
