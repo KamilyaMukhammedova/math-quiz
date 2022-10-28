@@ -103,11 +103,13 @@ export const finishGame = (leaderBoardName) => {
       });
     }
 
-    setToLocalStorage('correctAnswers', correctAnswers);
-    setToLocalStorage('incorrectAnswers', incorrectAnswers);
-    setToLocalStorage('currentScore', userScoreCounter);
     setToLocalStorage(leaderBoardName, lsLeaderBord);
+  } else {
+    setToLocalStorage(leaderBoardName, {userName: userNameLocalStorage, score: userScoreCounter});
   }
+  setToLocalStorage('correctAnswers', correctAnswers);
+  setToLocalStorage('incorrectAnswers', incorrectAnswers);
+  setToLocalStorage('currentScore', userScoreCounter);
 };
 
 stopGameBtn.addEventListener('click', () => {

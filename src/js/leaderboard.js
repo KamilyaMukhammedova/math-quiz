@@ -7,15 +7,20 @@ const gameModeSelect = document.getElementById('game-mode');
 
 const getLeaderboardFromLocalStorage = (gameMode) => {
   let currentLeaderboardLocalStorage = '';
+  let sortedLeaderboard = '';
 
   gameMode === 'practice' ?
     currentLeaderboardLocalStorage = JSON.parse(localStorage.getItem('leaderBoardPractice')) :
     currentLeaderboardLocalStorage = JSON.parse(localStorage.getItem('leaderBoardTimeAttack'))
   ;
 
-  const sortedLeaderboard = currentLeaderboardLocalStorage.sort((a, b) => {
-    return b.score - a.score;
-  });
+  if (currentLeaderboardLocalStorage.length > 1) {
+    sortedLeaderboard = currentLeaderboardLocalStorage.sort((a, b) => {
+      return b.score - a.score;
+    });
+  } else {
+    sortedLeaderboard = [currentLeaderboardLocalStorage];
+  }
 
   sortedLeaderboard.forEach(item => {
     const userData = document.createElement('div');
