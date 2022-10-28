@@ -33,6 +33,6 @@ export const getFromLocalStorage = (key) => {
 };
 
 export const redirectToPage = (page) => {
-  window.location.assign(`http://localhost:3000/${page}.html`);
+  window.location.assign(`/${page}.html`);
 };
 
