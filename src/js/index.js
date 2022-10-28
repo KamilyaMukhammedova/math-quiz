@@ -1,6 +1,6 @@
-import './index.scss';
+import '../index.scss';
 import 'bootstrap';
-import {onFieldValidator, checkGameModeBtns, setToLocalStorage, redirectToPage} from "./js-ui/main";
+import {onFieldValidator, checkGameModeBtns, setToLocalStorage, redirectToPage} from "../js-ui/main";
 
 const form = document.getElementById('user-form');
 const userName = document.getElementById('user-name');

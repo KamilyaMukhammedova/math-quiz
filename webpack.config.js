@@ -20,7 +20,7 @@ module.exports = {
     hot: true,
   },
   entry: pages.reduce((config, page) => {
-    config[page] = `./src/${page}.js`;
+    config[page] = `./src/js/${page}.js`;
     return config;
   }, {}),
   output: {
@@ -39,7 +39,7 @@ module.exports = {
         (page) =>
           new HtmlWebpackPlugin({
             inject: true,
-            template: `./${page}.html`,
+            template: `./pages/${page}.html`,
             filename: `${page}.html`,
             chunks: [page],
           })

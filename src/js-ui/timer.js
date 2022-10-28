@@ -1,4 +1,4 @@
-import {finishGame} from "../game";
+import {finishGame} from "../js/game";
 import {redirectToPage} from "./main";
 
 export const formatTimeLeft = (time) => {

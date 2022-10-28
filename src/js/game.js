@@ -1,16 +1,16 @@
-import './index.scss';
+import '../index.scss';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import {snackbar} from "./js-ui/snackbar";
-import {getFromLocalStorage, redirectToPage, setToLocalStorage} from "./js-ui/main";
-import {getShakeAnimation, mathExampleAnimation} from "./js-ui/animations";
+import {snackbar} from "../js-ui/snackbar";
+import {getFromLocalStorage, redirectToPage, setToLocalStorage} from "../js-ui/main";
+import {getShakeAnimation, mathExampleAnimation} from "../js-ui/animations";
 import {
   getRandomMathSign,
   getRandomNumber,
   getRandomNumberForDivision,
   getRandomNumberFromMinToMax
-} from "./js-ui/math-functions";
-import {startTimer} from "./js-ui/timer";
+} from "../js-ui/math-functions";
+import {startTimer} from "../js-ui/timer";
 
 const userName = document.getElementById('user-name');
 const number1 = document.getElementById('number-1');

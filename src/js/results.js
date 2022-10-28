@@ -1,8 +1,8 @@
-import './index.scss';
+import '../index.scss';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import {getFromLocalStorage} from "./js-ui/main";
-import {onConfettiFireworks, onConfettiSnow} from "./js-ui/confetti";
+import {getFromLocalStorage} from "../js-ui/main";
+import {onConfettiFireworks, onConfettiSnow} from "../js-ui/confetti";
 
 const gameResultScore = document.getElementById('result-score');
 const gameMode = document.getElementById('current-mode-name');
