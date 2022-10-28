@@ -33,8 +33,8 @@ module.exports = {
       'img': './img'
     }
   },
-  plugins:
-    [].concat(
+  plugins: [
+    ...[].concat(
       pages.map(
         (page) =>
           new HtmlWebpackPlugin({
@@ -45,6 +45,8 @@ module.exports = {
           })
       )
     ),
+    new MiniCssExtractPlugin()
+  ],
   optimization: {
     splitChunks: {
       chunks: "all",
