@@ -6,18 +6,20 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
 </head>
 <body>
-<div class="results col-5 border p-5 text-center">
+<div class="results col-10 col-xl-5 col-md-7 col-sm-6 p-5 text-center centered-card">
     <div class="results__content">
-        <div class="results__mode-name" id="current-mode-name"></div>
+        <div class="results__mode-name text-uppercase" id="current-mode-name"></div>
+        <div class="results__mode-name results__icon mt-3" id="time-is-up"></div>
         <h3 class="mt-3">Your score:</h3>
         <p id="result-score" class="results__score-number mb-3"></p>
         <div class="results__mini-text">Correct: <span id="correct-answers"></span></div>
         <div class="results__mini-text mb-5">Incorrect: <span id="incorrect-answers"></span></div>
-        <a href="leaderboard.html" class="btn btn-secondary">Leaderboard</a>
-        <a href="game.html" class="btn btn-secondary">Play again</a>
-        <a href="index.html" class="btn btn-outline-dark">Main menu</a>
+        <a href="leaderboard.html" class="btn btn-secondary col-12 mb-2">Leaderboard</a>
+        <a href="game.html" class="btn btn-secondary col-12 mb-2">Play again</a>
+        <a href="index.html" class="btn btn-outline-secondary col-12 mb-2">Main menu</a>
     </div>
 </div>
 </body>

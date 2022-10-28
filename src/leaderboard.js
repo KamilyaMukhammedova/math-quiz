@@ -1,5 +1,6 @@
 import './index.scss';
 import 'bootstrap';
+import 'bootstrap-icons/font/bootstrap-icons.css';
 
 const usersListContainer = document.getElementById('leaderboard-users-list');
 const gameModeSelect = document.getElementById('game-mode');

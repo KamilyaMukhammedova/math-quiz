@@ -1,7 +1,16 @@
 import './index.scss';
 import 'bootstrap';
 import 'bootstrap-icons/font/bootstrap-icons.css';
-import {snackbar} from "./snackbar";
+import {snackbar} from "./js-ui/snackbar";
+import {getFromLocalStorage, redirectToPage, setToLocalStorage} from "./js-ui/main";
+import {getShakeAnimation, mathExampleAnimation} from "./js-ui/animations";
+import {
+  getRandomMathSign,
+  getRandomNumber,
+  getRandomNumberForDivision,
+  getRandomNumberFromMinToMax
+} from "./js-ui/math-functions";
+import {startTimer} from "./js-ui/timer";
 
 const userName = document.getElementById('user-name');
 const number1 = document.getElementById('number-1');
@@ -11,84 +20,27 @@ const userResult = document.getElementById('user-result');
 const userScore = document.getElementById('user-score');
 const mathExampleDiv = document.getElementById('math-example');
 const stopGameBtn = document.getElementById('stop-game-btn');
-
 const timerContainer = document.getElementById('timer-container');
 const timer = document.getElementById('timer');
-
 const userScoreContainer = document.getElementById('user-score-container');
 
-const userNameLocalStorage = JSON.parse(localStorage.getItem('currentUserName'));
-const gameModeLocalStorage = JSON.parse(localStorage.getItem('currentGameMode'));
-
-let userScoreCounter = 0;
-let correctMathExampleResult = 0;
-
-let correctAnswers = 0;
-let incorrectAnswers = 0;
-
-const TIME_LIMIT = 30;
-let timePassed = 0;
-let timeLeft = TIME_LIMIT;
-let timerInterval = null;
+const userNameLocalStorage = getFromLocalStorage('currentUserName');
+const gameModeLocalStorage = getFromLocalStorage('currentGameMode');
 
 const signsArray = ['+', '-', '/', '*'];
 const minNumber = 2;
 const maxNumber = 100;
+const TIME_LIMIT = 90;
 
-const getRandomNumber = (max) => {
-  return Math.floor(Math.random() * max);
-};
+let userScoreCounter = 0;
+let correctMathExampleResult = 0;
+let correctAnswers = 0;
+let incorrectAnswers = 0;
 
-const getRandomNumberFromMinToMax = (max, min) => {
-  return parseInt(Math.random() * (max - min) + min);
-};
 
-const getRandomMathSign = () => {
-  return signsArray[getRandomNumber(signsArray.length)];
-};
-
-const mathExampleAnimation = (element, direction) => {
-  const animationHandler = () => {
-    element.classList.remove(`${direction}-slide`);
-    element.removeEventListener('animationend', animationHandler);
-  };
-
-  element.classList.add(`${direction}-slide`);
-  element.addEventListener('animationend', animationHandler);
-};
-
-const getShakeAnimation = (element) => {
-  element.classList.add('game__score-shake');
-  setTimeout(() => {
-    element.classList.remove('game__score-shake');
-  }, 500);
-};
-
-const getRandomNumberForDivision = () => {
-  let isMatchToDivision = true;
-  let number = 0;
-
-  while (isMatchToDivision) {
-    number = getRandomNumberFromMinToMax(100, 3);
-    const divisorsArray = [];
-
-    for (let i = 2; i < number; i++) {
-      if ((number % i) === 0 && (i !== number)) {
-        divisorsArray.push(i);
-      }
-    }
-
-    if (divisorsArray.length > 0) {
-      isMatchToDivision = false;
-      break;
-    }
-  }
-
-  return number;
-};
 
 const getMathExample = () => {
-  const randomSign = getRandomMathSign();
+  const randomSign = getRandomMathSign(signsArray);
   let randomNumber1 = 0;
   let randomNumber2 = 0;
 
@@ -117,7 +69,7 @@ const getMathExample = () => {
       correctMathExampleResult = randomNumber2 - randomNumber1;
     }
   } else if (randomSign === '/') {
-    randomNumber1 = getRandomNumberForDivision();
+    randomNumber1 = getRandomNumberForDivision(100, minNumber);
     randomNumber2 = 0;
     const divisorsArray = [];
 
@@ -134,61 +86,11 @@ const getMathExample = () => {
   }
 };
 
-window.addEventListener('DOMContentLoaded', () => {
-  localStorage.setItem('currentScore', JSON.stringify(0));
-  localStorage.setItem('correctAnswers', JSON.stringify(0));
-  localStorage.setItem('incorrectAnswers', JSON.stringify(0));
-
-  if (gameModeLocalStorage === 'practice') {
-    timerContainer.style.display = 'none';
-  } else {
-    timerContainer.style.display = 'block';
-    startTimer();
-  }
-
-  userName.innerText = userNameLocalStorage;
-  userResult.focus();
-  mathExampleAnimation(mathExampleDiv, 'left');
-  getMathExample();
-
-  userResult.addEventListener('keydown', (e) => {
-    if (e.keyCode === 13) {
-      if (correctMathExampleResult === parseInt(e.target.value)) {
-        userScoreCounter++;
-        correctAnswers++;
-        snackbar('white', true);
-        userResult.value = '';
-      } else {
-        if (userScoreCounter !== 0) {
-          userScoreCounter--;
-          snackbar('red', false);
-        } else {
-          snackbar('red', false, true);
-        }
-        incorrectAnswers++;
-        getShakeAnimation(userScoreContainer);
-        userResult.value = '';
-      }
-      mathExampleAnimation(mathExampleDiv, 'left');
-      getMathExample();
-    }
-  });
-
-});
-
-stopGameBtn.addEventListener('click', () => {
-  gameModeLocalStorage === 'practice' ?
-    analyseResults('leaderBoardPractice') : analyseResults('leaderBoardTimeAttack');
-
-  window.location.assign('http://localhost:3000/results.html');
-});
-
-
-function analyseResults(leaderBoardName) {
+export const finishGame = (leaderBoardName) => {
   let lsLeaderBord = [];
 
-  if (JSON.parse(localStorage.getItem(leaderBoardName))) {
-    lsLeaderBord = JSON.parse(localStorage.getItem(leaderBoardName));
+  if (getFromLocalStorage(leaderBoardName)) {
+    lsLeaderBord = getFromLocalStorage(leaderBoardName);
 
     if (!(lsLeaderBord.find(user => user.userName === userNameLocalStorage))) {
       lsLeaderBord.push({userName: userNameLocalStorage, score: userScoreCounter});
@@ -201,39 +103,69 @@ function analyseResults(leaderBoardName) {
       });
     }
 
-    localStorage.setItem('correctAnswers', JSON.stringify(correctAnswers));
-    localStorage.setItem('incorrectAnswers', JSON.stringify(incorrectAnswers));
-    localStorage.setItem('currentScore', JSON.stringify(userScoreCounter));
-    localStorage.setItem(leaderBoardName, JSON.stringify(lsLeaderBord));
+    setToLocalStorage('correctAnswers', correctAnswers);
+    setToLocalStorage('incorrectAnswers', incorrectAnswers);
+    setToLocalStorage('currentScore', userScoreCounter);
+    setToLocalStorage(leaderBoardName, lsLeaderBord);
   }
-}
+};
 
+stopGameBtn.addEventListener('click', () => {
+  gameModeLocalStorage === 'practice' ?
+    finishGame('leaderBoardPractice') :
+    finishGame('leaderBoardTimeAttack')
+  ;
 
-function formatTimeLeft(time) {
-  const minutes = Math.floor(time / 60);
-  let seconds = time % 60;
+  redirectToPage('results');
+});
 
-  if (seconds < 10) {
-    seconds = `0${seconds}`;
-  }
-  return `${minutes}:${seconds}`;
-}
-
-
-function startTimer() {
-  timerInterval = setInterval(() => {
-
-    timePassed = timePassed += 1;
-    timeLeft = TIME_LIMIT - timePassed;
-    timer.textContent = formatTimeLeft(timeLeft);
-
-    if (timeLeft === 0) {
-      analyseResults('leaderBoardTimeAttack');
-      clearInterval(timerInterval);
-      window.location.assign('http://localhost:3000/results.html');
+userResult.addEventListener('keydown', (e) => {
+  if (e.keyCode === 13) {
+    if (correctMathExampleResult === parseInt(e.target.value)) {
+      userScoreCounter++;
+      correctAnswers++;
+      snackbar('white', true);
+    } else {
+      if (userScoreCounter !== 0) {
+        userScoreCounter--;
+        snackbar('red', false);
+      } else {
+        snackbar('red', false, true);
+      }
+      incorrectAnswers++;
+      getShakeAnimation(userScoreContainer);
     }
-  }, 1000);
-}
+    mathExampleAnimation(mathExampleDiv, 'left');
+    getMathExample();
+    userResult.value = '';
+  }
+});
+
+window.addEventListener('DOMContentLoaded', () => {
+  setToLocalStorage('correctAnswers', 0);
+  setToLocalStorage('incorrectAnswers', 0);
+  setToLocalStorage('currentScore', 0);
+
+  userName.innerText = userNameLocalStorage;
+  userResult.focus();
+
+  mathExampleAnimation(mathExampleDiv, 'left');
+  getMathExample();
+
+  if (gameModeLocalStorage === 'practice') {
+    timerContainer.style.display = 'none';
+  } else {
+    timerContainer.style.display = 'block';
+    startTimer(TIME_LIMIT, timer);
+  }
+});
+
+
+
+
+
+
+
 
 
 

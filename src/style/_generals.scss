@@ -12,6 +12,16 @@ body {
   font-size: 16px;
 }
 
+input, select {
+  color: $darkGrey !important;
+}
+
+input:focus, select:focus {
+  outline: none !important;
+  border-color: $light-purple !important;
+  box-shadow: 0 0 10px $light-purple !important;
+}
+
 .light-purple-bg {
   background-color: $purple !important;
   border-radius: 5px;
@@ -21,46 +31,22 @@ body {
   color: $purple !important;
 }
 
-.animation-container {
-  width: 70%;
-  margin:  0 auto;
+.centered-card {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  -webkit-box-shadow: 0 5px 10px 10px rgba(172, 159, 187, 0.2);
+  -moz-box-shadow: 0 5px 10px 10px rgba(172, 159, 187, 0.2);
+  box-shadow: 0 5px 10px 10px rgba(172, 159, 187, 0.2);
 }
 
-.right-slide {
-  animation: right-slide 0.5s ease-in-out;
-}
 
-@keyframes right-slide {
-  from {
-    opacity: 1;
-    transform: translateX(0);
-  }
 
-  to {
-    opacity: 0;
-    transform: translateX(400px);
-  }
-}
 
-.left-slide {
-  animation: left-slide 0.5s ease-in-out;
-}
 
-@keyframes left-slide {
-  from {
-    opacity: 0;
-    transform: translateX(-400px);
-  }
 
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 
-.results {
-  margin: 50px auto 0;
-}
 
 
 

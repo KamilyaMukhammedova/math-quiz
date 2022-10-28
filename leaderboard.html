@@ -9,17 +9,20 @@
 </head>
 <body>
 <div class="container">
-    <div class="card col-6 mt-5 p-3 text-center">
-        <a href="index.html" class="btn btn-outline-secondary mb-3">Go to main menu</a>
-        <h4 class="mb-4">Leaderboard</h4>
-        <div class="col-4">
-            <label class="form-label" for="game-mode">Game mode</label>
+    <div class="centered-card col-xl-6 col-10 col-md-7 col-sm-8 p-3 text-center">
+        <h4 class="mb-4 text-uppercase">Leaderboard</h4>
+        <div class="col-10 col-xl-4 col-md-5 col-sm-6 m-auto">
+            <label class="form-label d-flex align-items-center justify-content-around" for="game-mode">
+                <span>Game mode</span>
+                <i class="bi bi-controller fs-3"></i>
+            </label>
             <select id="game-mode" class="form-select">
-                <option value="practice-mode">Practice</option>
-                <option value="time-attack-mode">Time attack</option>
+                <option value="practice-mode">practice</option>
+                <option value="time-attack-mode">time attack</option>
             </select>
         </div>
-        <div class="card-body mt-5" id="leaderboard-users-list"></div>
+        <div class="mt-5 p-2 overflow-scroll" id="leaderboard-users-list" style="height: 200px"></div>
+        <a href="index.html" class="btn btn-outline-secondary mt-5 col-12">Main menu</a>
     </div>
 </div>
 </body>

@@ -9,31 +9,38 @@
 </head>
 <body>
 <div class="container">
-    <div class="col-5 m-auto mt-5">
-        <div class="card p-5">
-            <div class="card-body text-center">
-                <h3 class="card-title">Hello, Gamer!</h3>
-                <h5 class="card-title mb-3">Tell us your name.</h5>
+    <div class="col-10 col-md-7 col-sm-9 col-xl-5 centered-card">
+        <div class="p-5">
+            <div class="text-center text-uppercase">
+                <h1 class="light-purple-color mb-5">Math Quiz</h1>
+                <h3>Hello, Gamer!</h3>
+                <h5 class="mb-3">Tell us your name.</h5>
                 <form id="user-form">
                     <input type="text" class="form-control mb-3" placeholder="User name" id="user-name"/>
                     <div class="invalid-feedback">The field is required*</div>
                     <p>Choose your game mode:</p>
-                    <div class="row">
-                        <label class="btn btn-secondary col-6" for="practice-mode" id="practice-mode-btn">
-                            Practice
+                    <div class="d-flex justify-content-between text-lowercase flex-wrap">
+                        <label class="btn btn-outline-secondary col-xl-5 col-md-5 col-sm-5 col-12 mb-3"
+                               for="practice-mode"
+                               id="practice-mode-btn"
+                        >
+                            <span>Practice</span>
                             <input type="radio" id="practice-mode" name="mode-game" class="btn-check" checked/>
                         </label>
-                        <label class="btn btn-secondary col-6" for="time-attack-mode" id="time-attack-mode-btn">
-                            Time Attack
+                        <label class="btn btn-outline-secondary col-xl-5 col-md-5 col-sm-5 col-12 mb-3"
+                               for="time-attack-mode"
+                               id="time-attack-mode-btn"
+                        >
+                            <span>Time Attack</span>
                             <input type="radio" id="time-attack-mode" name="mode-game" class="btn-check"/>
                         </label>
                     </div>
-                    <button type="submit" class="btn btn-dark mt-3 mb-4" id="user-form-submit" disabled>
+                    <button type="submit" class="btn btn-secondary mt-5 mb-4" id="user-form-submit" disabled>
                         Let's start
                     </button>
                 </form>
-                <div>
-                    <a href="#" class="light-purple-color">Don't know the rules? Click here!</a>
+                <div class="mb-2">
+                    <a href="rules.html" class="light-purple-color">Don't know the rules? Click here!</a>
                 </div>
                 <div>
                     <a href="leaderboard.html" class="text-secondary">Leaderboard</a>

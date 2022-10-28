@@ -3,19 +3,41 @@
     font-size: 95px;
     font-weight: bold;
     margin-top: 10%;
+
+    @include s {
+      font-size: 65px;
+    }
   }
 
   &__score-number {
     background-color: $purple;
     border-radius: 10px;
-    width: 170px;
+    width: 30%;
     margin: 0 auto;
+
+    @include m {
+      width: 40%;
+    }
+
+    @include s {
+      width: 60%;
+    }
   }
 
   &__input {
     font-size: 100px !important;
     color: $white !important;
     background-color: $light-purple !important;
+    text-align: center !important;
+    border-color: $darkGrey !important;
+
+    @include m {
+      font-size: 85px !important;
+    }
+
+    @include s {
+      font-size: 70px !important;
+    }
 
     &:focus {
       outline: none !important;
@@ -32,16 +54,41 @@
 
   &__math-ex {
     font-size: 100px;
+
+    @include m {
+      font-size: 85px;
+    }
+
+    @include s {
+      font-size: 70px;
+    }
   }
 
   &__timer {
     font-size: 50px;
     border-radius: 5px;
-    text-align: center;
+    text-align: right;
+
+    @include s {
+      font-size: 38px;
+    }
   }
 
   &__score-shake {
     animation: jump-shaking 0.83s 2;
+  }
+
+  &__animation-container {
+    width: 70%;
+    margin:  0 auto;
+  }
+
+  &__right-slide {
+    animation: right-slide 0.5s ease-in-out;
+  }
+
+  &__left-slide {
+    animation: left-slide 0.5s ease-in-out;
   }
 }
 
@@ -53,4 +100,28 @@
   65% { transform: translateY(-9px) rotate(17deg) }
   75% { transform: translateY(-9px) rotate(-17deg) }
   100% { transform: translateY(0) rotate(0) }
+}
+
+@keyframes right-slide {
+  from {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  to {
+    opacity: 0;
+    transform: translateX(400px);
+  }
+}
+
+@keyframes left-slide {
+  from {
+    opacity: 0;
+    transform: translateX(-400px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
 }
