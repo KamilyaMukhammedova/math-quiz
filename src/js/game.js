@@ -38,7 +38,6 @@ let correctAnswers = 0;
 let incorrectAnswers = 0;
 
 
-
 const getMathExample = () => {
   const randomSign = getRandomMathSign(signsArray);
   let randomNumber1 = 0;
@@ -90,7 +89,7 @@ export const finishGame = (leaderBoardName) => {
   let lsLeaderBord = [];
 
   if (getFromLocalStorage(leaderBoardName)) {
-    lsLeaderBord = getFromLocalStorage(leaderBoardName);
+    lsLeaderBord.push(getFromLocalStorage(leaderBoardName));
 
     if (!(lsLeaderBord.find(user => user.userName === userNameLocalStorage))) {
       lsLeaderBord.push({userName: userNameLocalStorage, score: userScoreCounter});
@@ -103,7 +102,7 @@ export const finishGame = (leaderBoardName) => {
       });
     }
 
-    setToLocalStorage(leaderBoardName, lsLeaderBord);
+    setToLocalStorage(leaderBoardName, [...lsLeaderBord]);
   } else {
     setToLocalStorage(leaderBoardName, {userName: userNameLocalStorage, score: userScoreCounter});
   }
